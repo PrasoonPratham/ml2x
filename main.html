@@ -5,18 +5,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
     <title>2x </title>
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
 <body>
 
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
 
+    <div class="m-4 flex justify-center pt-30 text-3xl">2x your number, using machine learning.... because why not?</div>
     <div>
+       
         <div class="m-4 flex justify-center pt-56">
-            <input class="rounded-l-lg p-4 border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white" id="input"
-                placeholder="Enter the number" />
+            
+            <input class="rounded-l-lg p-4 border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white"
+                id="input" placeholder="Enter the number" />
             <button
                 class="px-8 rounded-r-lg bg-yellow-400  text-gray-800 font-bold p-4 uppercase border-yellow-500 border-t border-b border-r submit-num">Enter</button>
         </div>
@@ -24,11 +27,25 @@
     </div>
 
     <script>
+
+
+        // Create TensorFlow.js model and session
+
+        // const model = tf.loadLayersModel('https://raw.githubusercontent.com/PrasoonPratham/ml2x/main/tfjs-model/model.json');
+
         const element = document.querySelector(".submit-num");
 
         element.addEventListener("click", () => {
-            console.log("clicked element");
-            document.getElementById("output").innerHTML = "2x your number is: " + document.getElementById("input").value ;
+            const input_num = document.getElementById("input").value;
+            list = [0.0]
+            list[0] = input_num;
+            list = tf.tensor(list.map(Number));
+            tf.loadLayersModel('https://raw.githubusercontent.com/PrasoonPratham/ml2x/main/tfjs-model/model.json').then(model => {
+                pred = model.predict(list);
+                console.log(pred);
+                pred = pred.arraySync()
+                document.getElementById("output").innerHTML = "2x your number is (almost) " + pred;
+            });
         });
     </script>
 
