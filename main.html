@@ -40,7 +40,7 @@
             list = [0.0]
             list[0] = input_num;
             list = tf.tensor(list.map(Number));
-            tf.loadLayersModel('https://raw.githubusercontent.com/PrasoonPratham/ml2x/main/tfjs-model/model.json').then(model => {
+            tf.loadLayersModel('https://raw.githubusercontent.com/PrasoonPratham/ml2x/main/model.json').then(model => {
                 pred = model.predict(list);
                 console.log(pred);
                 pred = pred.arraySync()
