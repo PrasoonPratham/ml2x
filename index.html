@@ -44,7 +44,7 @@
                 pred = model.predict(list);
                 console.log(pred);
                 pred = pred.arraySync()
-                document.getElementById("output").innerHTML = "2x your number is (almost) " + pred;
+                document.getElementById("output").innerHTML = "2x your number is " + Math.ceil(pred);
             });
         });
     </script>
